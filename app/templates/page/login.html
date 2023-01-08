@@ -1,0 +1,68 @@
+{% extends "main.html" %}
+
+{% block title %}LOGIN{% endblock %}
+
+
+{% block style %}
+<style>
+  .custom-container {
+    max-width: 300px;
+    margin: auto;
+  }
+
+  .login-error {
+    font-size: 10px;
+    background-color: #cfe2ff;
+    color: black;
+    padding: 5px;
+  }
+
+  form input[type="submit"] {
+    background-color: green;
+    color: aliceblue;
+  }
+
+  .signup{
+    color:black;
+  }
+  .signup:hover{
+    color:blue;
+  }
+</style>
+{% endblock %}
+{% block body %}
+<main>
+
+  <div class="custom-container">
+
+    <div class="text-center p-3">
+      <a class="navbar-brand" href="#"><sub>This</sub>WEB<sup>Page</sup></a>
+    </div>
+    {% if nologin %}
+    <div class="border login-error text-center">{{nologin}}</div>
+    {% endif %}
+    <form action="/login/" method="post">
+      {% csrf_token %}
+      <div class="text-muted"></div>
+
+
+      <div> <label for="id_email">Email Id:</label> <input type="text" name="email" class="form-control" maxlength="255"
+          required="" id="id_email">
+        <ul>
+
+        </ul>
+      </div>
+
+      <div> <label for="id_password">Password:</label> <input type="password" name="password" class="form-control"
+          maxlength="16" minlength="8" required="" id="id_password">
+        <ul>
+
+        </ul>
+      </div>
+
+      <input class="form-control" type="submit" value="Submit">
+    </form>
+    <div class="text-center mt-3"><a href={% url 'sign_up' %}><span class="signup">Signup instead</span></a></div>
+  </div>
+</main>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "main2.html" %}
+{% block title %}Asignment{% endblock %}
+{% block style %}
+<style>
+    textarea {
+        height: 80vh;
+    }
+
+    .fa-files-o:hover {
+        opacity: 0.5;
+    }
+</style>
+{% endblock %}
+{% block body %}
+<main>
+    <div class="container">
+        <div class="row">
+        <div class="bg-light p-2 mt-2">
+            <form action="/admin/email/temp/" method="post">
+                {% csrf_token %}
+                <div class="border border-info mt-3 mb-3 p-2">
+                    Important Instruction
+                    <ul>
+                        <li>For adding name add "<span>{name}</span>" <i class="fa fa-files-o px-2"
+                            onclick="myFunction(event)" aria-hidden="true"></i></li>
+                        <li>For adding email add "<span>{emailid}</span>" <i class="fa fa-files-o px-2"
+                                onclick="myFunction(event)" aria-hidden="true"></i></li>
+                        <li>For adding google meet link add "<span>{googlemeet}</span>" <i class="fa fa-files-o px-2"
+                                onclick="myFunction(event)" aria-hidden="true"></i></li>
+                    </ul>
+                </div>
+                <lable>Email Format</lable>
+                <textarea class="form-control" rows="10" name="text">{{typeData.text}}</textarea>
+                <button type="submit" class="btn btn-primary mt-2">Submit</button>
+            </form>
+        </div>
+    </div>
+</main>
+{% endblock %}
+{% block js %}
+<script>
+    function myFunction(event) {
+        var r = document.createRange();
+        r.selectNode(event.currentTarget.previousElementSibling);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(r);
+        document.execCommand('copy');
+        window.getSelection().removeAllRanges();
+    }
+</script>
+{% endblock %}

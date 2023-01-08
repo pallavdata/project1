@@ -1,0 +1,40 @@
+{% extends "main.html" %}
+{% block title %}Details{% endblock %}
+
+{% block body %}
+<div class="container">
+  <h1 class="text-center">{{data.title}}</h1>
+  <div class="card">
+    <div class="card-body">
+      {{data.description}}
+      <hr>
+      <div class="col-sm-5 col-md-4 col-auto">
+        <div class="rounded-pill border p-2 bg-light text-center"><i class="fa fa-map-marker px-1"
+            aria-hidden="true"></i>LOCATION</div>
+            <div class="text-center">
+              {{location}}
+          </div>
+      </div>
+      
+      <div class="row mt-4 mb-4">
+        <div class="col-auto">
+          <div class="rounded-pill border p-2 bg-light"><i class="fa fa-money px-1" aria-hidden="true"></i> SALARY</div>
+          <div class="text-center">{{data.salary}} rs.</div>
+        </div>
+        <div class="col-auto">
+          <div class="rounded-pill border p-2 bg-light"><i class="fa fa-calendar-o px-1" aria-hidden="true"></i>APPLY
+            TILL</div>
+          <div class="text-center">{{data.end_date}}</div>
+        </div>
+      </div>
+      <h5 class="m-2">Experience</h5>
+      <div class="mx-3">{{data.experience}}</div>
+      <h5 class="m-2">Skill's required</h5>
+      <div class="mx-3">{{skills}}</div>
+      <div class="mt-3 text-center">
+        <a href="/apply_job/{{id}}/" class="card-link"><button class="btn btn-primary"> APPLY </button></a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

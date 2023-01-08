@@ -1,0 +1,87 @@
+{% extends "main2.html" %}
+{% block title %}Add data{% endblock %}
+{% block style %}
+{% endblock %}
+{% block body %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+<div class="container">
+    <form action="/admin/add/" method="post">
+        {% csrf_token %}
+        <label for="id_title">Title:</label>
+        <input type="text" class="form-control" name="title" maxlength="200" required id="id_title">
+        <div class="row">
+            <div class="col-md-4">
+                <label for="id_salary">Salary:</label>
+                <input type="number" class="form-control" name="salary" step="any" required id="id_salary">
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <label for="id_start_date">Start date:</label>
+                <input type="date" class="form-control" name="start_date" required id="id_start_date">
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <label for="id_end_date">End date:</label>
+                <input type="date" name="end_date" class="form-control" required id="id_end_date">
+            </div>
+        </div>
+        <label for="id_description">Description:</label>
+        <textarea name="description" class="form-control" cols="40" rows="5" maxlength="400" required
+            id="id_description">
+</textarea>
+        <label for="id_experience">Experience:</label>
+        <input type="text" class="form-control" name="experience" maxlength="100" required id="id_experience">
+        <label for="id_location">Location:</label>
+        <select class="selectpicker form-control" name="location" multiple id="id_location" data-live-search="true">
+            <option value="Remote">Remote</option>
+            <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+            <option value="Andhra Pradesh">Andhra Pradesh</option>
+            <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+            <option value="Assam">Assam</option>
+            <option value="Bihar">Bihar</option>
+            <option value="Chandigarh">Chandigarh</option>
+            <option value="Chhattisgarh">Chhattisgarh</option>
+            <option value="Dadra and Nagar Haveli">Dadra and Nagar Haveli</option>
+            <option value="Daman and Diu">Daman and Diu</option>
+            <option value="Delhi">Delhi</option>
+            <option value="Goa">Goa</option>
+            <option value="Gujarat">Gujarat</option>
+            <option value="Haryana">Haryana</option>
+            <option value="Himachal Pradesh">Himachal Pradesh</option>
+            <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+            <option value="Jharkhand">Jharkhand</option>
+            <option value="Karnataka">Karnataka</option>
+            <option value="Kerala">Kerala</option>
+            <option value="Lakshadweep">Lakshadweep</option>
+            <option value="Madhya Pradesh">Madhya Pradesh</option>
+            <option value="Maharashtra">Maharashtra</option>
+            <option value="Manipur">Manipur</option>
+            <option value="Meghalaya">Meghalaya</option>
+            <option value="Mizoram">Mizoram</option>
+            <option value="Nagaland">Nagaland</option>
+            <option value="Odisha">Odisha</option>
+            <option value="Puducherry">Puducherry</option>
+            <option value="Punjab">Punjab</option>
+            <option value="Rajasthan">Rajasthan</option>
+            <option value="Sikkim">Sikkim</option>
+            <option value="Tamil Nadu">Tamil Nadu</option>
+            <option value="Telangana">Telangana</option>
+            <option value="Tripura">Tripura</option>
+            <option value="Uttar Pradesh">Uttar Pradesh</option>
+            <option value="Uttarakhand">Uttarakhand</option>
+            <option value="West Bengal">West Bengal</option>
+        </select>
+        <label for="id_skills">Skills:</label>
+        <select class="selectpicker form-control" name="skills" multiple required id="id_skills"
+            data-live-search="true">
+        {% for i in skill %}
+        <option value="{{i.skill}}">{{i.skill}}</option>
+        {% endfor %}
+        </select>
+        <button type="submit" class="btn btn-primary mt-2">submit</button>
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Title</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS v5.2.1 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+</head>
+<style>
+  .calendar {
+    width: 98%;
+    margin: auto;
+    font-size: 13px;
+  }
+  .calendar tr,
+  .calendar td {
+    border: 1px solid black;
+  }
+  .calendar th {
+    padding: 10px;
+    text-align: center;
+    font-size: 18px;
+  }
+  .calendar td {
+    width: 200px;
+    height: 150px;
+    padding: 20px 0px 0px 5px;
+  }
+  .month {
+    font-size: 25px;
+  }
+  .date {
+    font-size: 16px;
+  }
+  ul {
+    height: 100%;
+    padding: 0px 5px 0px 20px;
+  }
+  a {
+    color: #17a2b8;
+  }
+</style>
+<body>
+  <header>
+    <!-- place navbar here -->
+  </header>
+  <main>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      Launch demo modal
+    </button>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content p-3">
+          <form>
+            <div class="form-group">
+              <lable>Event Name</lable>
+              <input class="form-control" type="text" name="summary">
+              <lable>Description</lable>
+              <textarea class="form-control" name="description"></textarea>
+              <lable>Start Time</lable>
+              <input class="form-control" type="datetime" name="start">
+              <lable>End Time</lable>
+              <input class="form-control" type="datetime" name="end">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Send Email</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+      Launch demo modal
+    </button>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <form>
+          <div class="form-group">
+            <lable>Event Name</lable>
+            <input class="form-control" type="text" name="summary">
+            <lable>description</lable>
+            <textarea class="form-control" name="description"></textarea>
+            <lable>Start Time</lable>
+            <input class="form-control" type="datetime" name="start">
+            <lable>End Time</lable>
+            <input class="form-control" type="datetime" name="end">
+          </div>
+        </form>
+      </div>
+      </div>
+    </div> -->
+  </main>
+  <footer>
+    <!-- place footer here -->
+  </footer>
+  <!-- Bootstrap JavaScript Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+    </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+    integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+    </script>
+</body>
+</html>

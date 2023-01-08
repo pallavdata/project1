@@ -1,0 +1,60 @@
+{% extends "main2.html" %}
+{% block title %}Offer Letter{% endblock %}
+{% block style %}
+{% endblock %}
+{% block body %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+    <main class="container">
+        <form action="/admin/makeofferletter/" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+                <div class="mb-3 col-auto">
+                    <label for="" class="form-label">Date of joining</label>
+                    <input type="date" name="date" class="form-control" aria-describedby="helpId">
+                </div>
+                <div class="mb-3 col-auto">
+                    <label class="form-label">Internship Months</label>
+                    <select name="months" class="form-control">
+                        {% for i in range %}
+                        <option value="{{i}}">{{i}} months</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-3 col-auto">
+                    <label for="" class="form-label">Amount</label>
+                    <input type="number" name="amount" id="" class="form-control" placeholder=""
+                        aria-describedby="helpId">
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">supervisor</label>
+                <input type="text" name="supervisor" id="" class="form-control" placeholder=""
+                    aria-describedby="helpId">
+            </div>
+            <label class="form-label">Role</label>
+            <select class="selectpicker form-control mt-2 mb-2" name="role" data-live-search="true">
+                {% for i in role %}
+                <option value="{{i.role}}">{{i.role}}</option>
+                {% endfor %}
+            </select>
+            <div class="mb-3 mt-3">
+                <label class="form-label">Applicant</label>
+                <select name="applicant" class="selectpicker form-control" multiple data-live-search="true">
+                    {% for i in data %}
+                    <option value={{i.customid}}>{{i.Applyid.email_id}} and {{i.Applyid.f_name}} {{i.Applyid.l_name}}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </main>
+<script type="text/javascript">
+    $('.selectpicker').selectpicker();
+</script>
+{% endblock %}

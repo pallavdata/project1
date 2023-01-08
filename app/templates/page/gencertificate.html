@@ -1,0 +1,125 @@
+{% extends "main2.html" %}
+{% block title %}Asignment{% endblock %}
+{% block style %}
+<style>
+    #makepdf {
+        border: 5px;
+        border-style: solid;
+        width: 700px;
+        margin:20px;
+    }
+
+    .border-dot {
+        margin: 2px;
+        border: 2px;
+        border-style: dotted;
+    }
+
+    hr {
+        width: 50%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .top {
+        font-size: xx-large;
+    }
+
+    .middle {
+        font-size: large;
+    }
+
+    .name {
+        font-size: 50px;
+        font-family: "Brush Script MT";
+    }
+</style>
+{% endblock %}
+{% block body %}
+
+<main>
+    <div class="border border-primary m-2 p-2">
+        <ul>
+            <li>
+                You can edit "_______" (dash lines) with word.
+            </li>
+            <li>
+                You can edit Him/Her or He/She with one option.
+            </li>
+            <li>
+                You can edit Name ("Ram") with other text.
+            </li>
+        </ul>
+    </div>
+    <div class="container row">
+        <div class="col-auto">
+            <div id="makepdf">
+                <div class="border-dot">
+                    <span class="text-center">
+                        <div class="top">
+                            <b>CERTIFICATE OF INTERNSHIP</b>
+                        </div>
+                        <hr align="center" width="50%">
+                        <div class="middle">
+                            THIS CERTIFICATE IS AWAREDED TO
+                        </div>
+                        <div contenteditable="true" class="name"><i>Ram</i></div>
+                        <p>
+                            <b>
+                                For outstanding completion of the internship program at<br>
+                                <span contenteditable="true">________</span> for the role of <span
+                                    contenteditable="true">________</span> under the guidance of <span
+                                    contenteditable="true">________</span><br>
+                                from date <span contenteditable="true">________</span> to <span
+                                    contenteditable="true">________</span>.<br>
+                                <span contenteditable="true">He/She</span> is found to be hardworking, sincere and
+                                diligent. We
+                                wish<br>
+                                <span contenteditable="true">him/her</span> all the best for future.
+                            </b>
+                        </p>
+                        <div class="container mt-5 mb-3">
+                            <div class="row justify-content-between">
+                                <div class="col-3">
+                                    <span contenteditable="true">
+                                        <div>Signature</div><small>CEO</small>
+                                    </span>
+                                </div>
+                                <div class="col-3">
+                                    <span contenteditable="true">
+                                        <div>Signature</div><small>CEO</small>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-auto">
+            <button type="button" id="button" class="btn btn-primary mt-5">Generate Certificate as PDF</button>
+        </div>
+    </div>
+</main>
+{% endblock %}
+{% block js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+    integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    
+    var button = document.getElementById("button");
+    var makepdf = document.getElementById("makepdf");
+    var opt = {
+        margin: 0,
+        // html2canvas:  { dpi, letterRendering: true, useCORS: true,logging: true},
+        filename: 'Certificate.pdf',
+        image: { type: 'jpeg', quality: 1 },
+        html2canvas: { scale: 3, y: 0, scrollY: 0 },
+        jsPDF: { unit: 'px', format: [750, 473], orientation: 'l' }
+    };
+    button.addEventListener("click", function () {
+        console.log(makepdf);
+        html2pdf().set(opt).from(makepdf).save();
+    });
+</script>
+{% endblock %}

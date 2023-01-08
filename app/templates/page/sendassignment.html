@@ -1,0 +1,67 @@
+{% extends "main2.html" %}
+{% block title %}Asignment{% endblock %}
+{% block style %}
+<style>
+    textarea {
+        height: 80vh;
+    }
+
+    .fa-files-o:hover {
+        opacity: 0.5;
+    }
+</style>
+{% endblock %}
+{% block body %}
+<main>
+    <div class="container">
+        <div class="row">
+            {% if seetype %}
+            <div class="col-auto">
+                <form action="/admin/assignment/{{id}}/" method="post">
+                    {% csrf_token %}
+                    <select class="form-select mt-2" aria-label="Select to add Type" name="type">
+                        {% for i in seetype %}
+                        <option value={{i.type}}>{{i.type}}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit" class="btn btn-primary mt-2">Show Assignment EMAIL Format</button>
+                </form>
+            </div>
+
+            {% endif %}
+            <div class="col-auto">
+                <a href="/admin/assignment/"><button type="submit" class="btn btn-secondary mt-2">ADD/EDIT TYPE or EMAIL FORMAT</button></a>
+            </div>
+            </div>
+            {% if typeData %}
+            <div class="bg-light p-2 mt-2">
+                <form action="/admin/send-assignment/{{id}}/" method="post">
+                    {% csrf_token %}
+                    <div class="border border-info mt-3 mb-3 p-2">
+                        Important Instruction
+                        <ul>
+                            <li>For adding email add "<span>{emailid}</span>" <i class="fa fa-files-o px-2"
+                                    onclick="myFunction(event)" aria-hidden="true"></i></li>
+                        </ul>
+                    </div>
+                    <lable>Assignment Format FOR TYPE - (<b>"{{typeData.type}}"</b>)</lable>
+                    <textarea class="form-control" rows="10" name="text">{{typeData.text}}</textarea>
+                    <button type="submit" class="btn btn-primary mt-2">Send</button>
+                </form>
+            </div>
+            {% endif %}
+        </div>
+</main>
+{% endblock %}
+{% block js %}
+<script>
+    function myFunction(event) {
+        var r = document.createRange();
+        r.selectNode(event.currentTarget.previousElementSibling);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(r);
+        document.execCommand('copy');
+        window.getSelection().removeAllRanges();
+    }
+</script>
+{% endblock %}

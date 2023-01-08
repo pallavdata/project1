@@ -1,0 +1,179 @@
+{% extends "main2.html" %}
+{% block title %}HOME{% endblock %}
+{% block style %}
+<style>
+    #notice {
+        max-height: 50vh;
+        overflow-y: scroll;
+    }
+
+    .list-group-item:nth-child(even) {
+        background-color: Lightblue;
+    }
+</style>
+{% endblock %}
+{% block body %}
+
+<div id="notice" class="container mt-3">
+    <ul class="list-group list-group-flush">
+
+        {% for i in data%}
+        <li class="list-group-item">
+            <div class="modal fade" id="exampleModal{{i.id}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content p-3">
+                        <form action="/admin/" method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <lable>Event Name</lable>
+                                <input class="form-control" type="text" name="summary">
+                                <lable>Description</lable>
+                                <textarea class="form-control" name="description"></textarea>
+                                <lable>Start Time</lable>
+                                <input class="form-control id_From" type="datetime-local" name="start">
+                                <lable>End Time</lable>
+                                <input class="form-control id_To" type="datetime-local" name="end">
+                                <input type="hidden" value="{{i.id}}" name="interview">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Send Email</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row justify-content-between pt-1 pb-1">
+                <div class="col-auto">
+                    {{i.f_name}} , {{i.email_id}}
+                </div>
+                <div class="col-auto">
+                    {{i.apply_date}}
+                </div>
+                {% if i.assignment == 0%}
+                <div class="col-auto">
+                    <a href="/admin/assignment/{{i.id}}/"><button type="button"
+                            class="btn btn-primary">Assignment</button></a>
+                    <a href="/admin/assignmentDone/{{i.id}}/"><button type="button"
+                            class="btn btn-secondary">Done</button></a>
+                </div>
+                <div class="col-auto">
+                    <button type="button" class="btn btn-light disabled">Interview</button>
+                </div>
+                <div class="col-auto">
+                    <button type="button" class="btn btn-light disabled">hired</button>
+                </div>
+                {% elif i.interview == 0%}
+                <div class="col-auto">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" onclick="date()"
+                        data-bs-target="#exampleModal{{i.id}}">
+                        Interview
+                    </button>
+                    <a href="/admin/interviewDone/{{i.id}}/"><button type="button"
+                            class="btn btn-secondary">Done</button></a>
+                </div>
+                <div class="col-auto">
+                    <button type="button" class="btn btn-light disabled">hired</button>
+                </div>
+                {% elif i.hired == 0%}
+                <div class="col-auto">
+                    <a href="/admin/hire/{{i.id}}/"><button type="button" class="btn btn-primary">hire</button></a>
+                </div>
+                {% else %}
+                <div class="col-auto">
+                    <button type="button" class="btn btn-light disabled">hired</button>
+                    <a href="/admin/hire/{{i.id}}/"><button type="button" class="btn btn-secondary">Send
+                            Again</button></a>
+                </div>
+                {% endif %}
+            </div>
+        </li>
+        {% endfor %}
+</div>
+<div class="container bg-light mt-3 pt-2 pb-4">
+    <div class="row">
+        <div class="mt-3 col-auto text-center">
+            <a href="/admin/assignment/" target="_blank"><button type="submit" class="btn btn-secondary mt-2">ASSIGNMENT - ADD/EDIT TYPE
+                    or
+                    EMAIL FORMAT</button></a>
+        </div>
+        <div class="mt-3 col-auto text-center">
+            <a href="/admin/email/temp/" target="_blank"><button type="submit" class="btn btn-secondary mt-2">INTERVIEW - ADD/EDIT EMAIL
+                    FORMAT</button></a>
+        </div>
+        <div class="mt-3 col-auto text-center">
+            <a href="/admin/offerletter/" target="_blank"><button type="submit" class="btn btn-secondary mt-2">Offer letter
+                    pdf</button></a>
+        </div>
+        <div class="mt-3 col-auto text-center">
+            <a href="/admin/certificate/" target="_blank"><button type="submit" class="btn btn-secondary mt-2">Certificate
+                    pdf</button></a>
+        </div>
+        <div class="mt-3 col-auto text-center">
+            <a href="/admin/htmlcertificate/" target="_blank"><button type="submit" class="btn btn-secondary mt-2">Certificate Image
+                    pdf</button></a>
+        </div>
+        
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+    function date() {
+        const updatedate = new Date()
+
+        function see(num) {
+            if (num < 10) {
+                return "0" + num;
+            }
+            else {
+                return num;
+            }
+        }
+
+        var updatemonths = see(updatedate.getMonth() + 1);
+        var updateHours = see(updatedate.getHours());
+        var updateMinutes = see(updatedate.getMinutes());
+        var updateDate = see(updatedate.getDate());
+
+        var year = updatedate.getFullYear()
+        var month = updatedate.getMonth()
+
+        for (var j = 0; j <= 5; j++) {
+            if (month < 12) {
+                month = month + 1;
+            }
+            else {
+                month = 1;
+                year = year + 1;
+            }
+        }
+        month = see(month);
+        year = see(year)
+
+        len = document.getElementsByClassName("id_From").length;
+        const maxVal = year + "-" + month + "-" + updateDate + "T" + updateHours + ":" + updateMinutes;
+        const minVal = updatedate.getFullYear() + "-" + updatemonths + "-" + updateDate + "T" + updateHours + ":" + updateMinutes;
+        const fromVal = updatedate.getFullYear() + "-" + updatemonths + "-" + updateDate + "T" + updateHours + ":" + updateMinutes;
+
+        for (var i = 0; i < len; i++) {
+            const dateControlFrom = document.getElementsByClassName("id_From")[i];
+            dateControlFrom.value = fromVal;
+            dateControlFrom.max = maxVal;
+            dateControlFrom.min = minVal;
+        }
+
+        newDate = new Date(updatedate.setHours(updatedate.getHours() + 2));
+        const toVal = newDate.getFullYear() + "-" + see(newDate.getMonth() + 1) + "-" + see(newDate.getDate()) + "T" + see(newDate.getHours()) + ":" + updateMinutes;
+
+        for (var i = 0; i < len; i++) {
+            const dateControlTo = document.getElementsByClassName("id_To")[i];
+            dateControlTo.value = toVal;
+            dateControlTo.max = maxVal;
+            dateControlTo.min = minVal;
+        }
+    }
+</script>
+{% endblock %}

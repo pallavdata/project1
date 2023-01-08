@@ -1,0 +1,44 @@
+{% extends "main2.html" %}
+
+{% block title %} QUESTION {% endblock %}
+
+
+{% block style %}
+<style>
+    body{
+        background-color: var(--bs-light);
+    }
+    h3{
+        padding: 10px;
+    }
+</style>
+{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="row justify-content-center">
+        {% for i in data %}
+        <div class="col-5 m-2 card text-center ">
+            <div class="card-header bg-white">
+              <ul class="nav nav-pills card-header-pills ">
+                <li class="nav-item">
+                <a href="/question/update/{{i.id}}/" class="nav-link active mx-1">Update</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/question/add/{{i.id}}/" class="nav-link active bg-info mx-1">Add</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/question/delete/{{i.id}}/" class="nav-link active bg-secondary mx-1">Delete</a>
+                </li>
+              </ul>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">{{i.title}}</h5>
+              <p class="card-text">{{i.description}}</p>
+            </div>
+            <div class="card-footer bg-white"><a href="#" class="btn btn-outline-success">PREVIEW</a></div>
+          </div>
+          {% endfor %}
+        </div>
+
+</div>
+{% endblock %}

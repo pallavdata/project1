@@ -1,0 +1,52 @@
+{% extends "main.html" %}
+
+{% block title %}SIGN UP{% endblock %}
+
+
+{% block style %}
+<style>
+  .custom-container {
+    max-width: 300px;
+    margin: auto;
+  }
+
+  #span-error {
+    font-size: 10px;
+  }
+
+  form input[type="submit"] {
+    background-color: green;
+    color: aliceblue;
+  }
+  .login{
+    color:black;
+  }
+  .login:hover{
+    color:blue;
+  }
+</style>
+{% endblock %}
+{% block body %}
+<main>
+  <div class="custom-container">
+    <div class="text-center p-3">
+      <a class="navbar-brand" href="#"><sub>This</sub>WEB<sup>Page</sup></a>
+    </div>
+    <form action="/sign_up/" method="post">
+      {% csrf_token %}
+      {{form.non_field_errors}}
+      {% for field in form %}
+      <div> {{field.label_tag}} {{field}}
+        <ul>
+          {% for error in field.errors %}
+          <li id="span-error"><span class="text-muted">{{error}}</span></li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endfor %}
+      <input class="form-control" type="submit" value="Submit">
+    </form>
+    <div class="text-center mt-3"><a href={% url 'login' %}><span class="login">Login instead</span></a></div>
+  </div>
+</main>
+{% endblock %}

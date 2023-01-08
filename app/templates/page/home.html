@@ -1,0 +1,51 @@
+{% extends "main.html" %}
+    {% block title %}HOME{% endblock %}
+
+{% block style %}
+<style>
+    body{
+        background-color: var(--bs-light);
+    }
+    h3 {
+        padding: 10px;
+    }
+
+    .color-light {
+        color: aliceblue;
+    }
+
+    .card {
+        border: 0;
+    }
+    .errorcolor{
+        background-color: #cfe2ff;
+    }
+</style>
+{% endblock %}
+    {% block body %}
+    <div class="container">
+        {% if score != False %}
+        <div class="errorcolor p-3">
+            <small>{{score}}</small>
+        </div>
+        {% endif %}
+        <div class="row">
+            {% for i in data%}
+            <div class="m-3 card col-lg-3 col-sm-5 col-11 ">
+                <div class="card-body">
+                    <h5 class="card-title">{{i.title}}</h5>
+                    <p class="card-text">{{i.description}}</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">SALARY {{i.salary}} rs.</li>
+                    <li class="list-group-item">TILL - {{i.end_date}}</li>
+                </ul>
+                <div class="card-footer bg-white">
+                    <a href="/apply_job/{{i.id}}/" class="card-link"><button class="btn btn-primary"> APPLY </button></a>
+                    <a href="/job_details/{{i.id}}/" class="card-link"><button class="btn btn-info">MORE</button></a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endblock %}

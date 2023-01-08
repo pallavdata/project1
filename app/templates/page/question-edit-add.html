@@ -1,0 +1,39 @@
+{% extends "main2.html" %}
+{% block title %} QUESTION {% endblock %}
+{% block style %}
+{% endblock %}
+{% block body %}
+    <div class="container">
+        <form action="/question/add/{{id}}/" method="post" enctype="multipart/form-data">{% csrf_token %}
+
+            <div class="row">
+                <div class="col-8">
+                    <label class="form-group">Question</label>
+                    <div class="form-group">
+                        <textarea name="question" maxlength="1200" class="form-control"></textarea>
+                    </div>
+                    <label class="form-group">Answer</label>
+                    <div class="form-group">
+                        <input typr="text" name="answer" maxlength="240" required class="form-control">
+                    </div>
+                    <label class="form-group">Option2</label>
+                    <div class="form-group">
+                        <input typr="text" name="option2" maxlength="240" required class="form-control">
+                    </div>
+                    <label class="form-group">Option3</label>
+                    <div class="form-group">
+                        <input typr="text" name="option3" maxlength="240" required class="form-control">
+                    </div>
+                    <label class="form-group">Option4</label>
+                    <div class="form-group">
+                        <input typr="text" name="option4" maxlength="120" required class="form-control">
+                    </div>
+                </div>
+                
+            </div>
+            <br><br><button type="submit" class="btn btn-success">Submit</button>
+        </form>
+
+  </div>
+
+  {% endblock %}

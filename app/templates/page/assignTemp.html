@@ -1,0 +1,89 @@
+{% extends "main2.html" %}
+{% block title %}Asignment{% endblock %}
+{% block style %}
+<style>
+    textarea {
+        height: 80vh;
+    }
+
+    .fa-files-o:hover {
+        opacity: 0.5;
+    }
+</style>
+{% endblock %}
+{% block body %}
+<main>
+    <div class="container">
+        <div class="row">
+            <div class="border border-info mt-1 mb-1 p-2">
+                Help Text :- <b>TYPE</b> must be <b>UNIQUE</b>
+            </div>
+            {% if seetype %}
+            <div class="col-auto">
+                <form action="/admin/assignment/" method="post">
+                    {% csrf_token %}
+                    <select class="form-select mt-2" aria-label="Select to add Type" name="type">
+                        {% for i in seetype %}
+                        <option value={{i.type}}>{{i.type}}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit" class="btn btn-primary mt-2">Show Assignment EMAIL Format</button>
+                </form>
+            </div>
+            {% endif %}
+            <div class="col-auto">
+                <form action="/admin/add-type/" method="post">
+                    {% csrf_token %}
+                    <input class="form-control mt-2" name="newType" type="text">
+                    <button type="Submit" class="btn btn-success mt-2">Add Type</button>
+                </form>
+            </div>
+            {% if seetype %}
+            <div class="col-auto">
+                <form action="/admin/delete-type/" method="post">
+                    {% csrf_token %}
+                    <select class="form-select mt-2" aria-label="Select to delete Type" name="type">
+                        {% for i in seetype %}
+                        <option value={{i.type}}>{{i.type}}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit" class="btn btn-danger mt-2">Delete Type</button>
+                </form>
+            </div>
+            {% endif %}
+        </div>
+        {% if typeData %}
+        <div class="bg-light p-2 mt-2">
+            <form action="/assign-save/" method="post">
+                {% csrf_token %}
+                <div class="border border-info mt-3 mb-3 p-2">
+                    Important Instruction
+                    <ul>
+                        <li>For adding name add "<span>{name}</span>" <i class="fa fa-files-o px-2"
+                            onclick="myFunction(event)" aria-hidden="true"></i></li>
+                        <li>For adding email add "<span>{emailid}</span>"" <i class="fa fa-files-o px-2"
+                                onclick="myFunction(event)" aria-hidden="true"></i></li>
+                    </ul>
+                </div>
+                <input type="hidden" value="{{typeData.type}}" name="type">
+                <lable>Assignment Format FOR TYPE - (<b>"{{typeData.type}}"</b>)</lable>
+                <textarea class="form-control" rows="10" name="text">{{typeData.text}}</textarea>
+                <button type="submit" class="btn btn-primary mt-2">Submit</button>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+</main>
+{% endblock %}
+{% block js %}
+<script>
+    function myFunction(event) {
+        var r = document.createRange();
+        r.selectNode(event.currentTarget.previousElementSibling);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(r);
+        document.execCommand('copy');
+        window.getSelection().removeAllRanges();
+    }
+</script>
+{% endblock %}

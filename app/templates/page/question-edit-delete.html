@@ -1,0 +1,21 @@
+{% extends "main2.html" %}
+{% block title %} QUESTION {% endblock %}
+{% block style %}
+{% endblock %}
+{% block body %}
+
+    <div class="container">
+      {% if data %}
+        {% for i in data%}
+        <div class="form-lable">{{i.question}}</div>
+        <a href="/question/delete/{{id}}/{{i.id}}/"><button type="submit" class="btn btn-secondary btn-sm mt-2">Delete</button></a>
+        
+        {% endfor %}
+        <br>
+      {% else %}
+      <h5 class="text-center mt-5 ">No Questions To Delete</h5>
+      {% endif %}
+
+</div>
+    
+{% endblock %}

@@ -1,0 +1,89 @@
+{% extends "main2.html" %}
+{% block title %} QUESTION {% endblock %}
+{% block style %}
+<style>
+    textarea {
+        height: 80vh;
+    }
+
+    .fa-files-o:hover {
+        opacity: 0.5;
+    }
+</style>
+{% endblock %}
+{% block body %}
+
+
+<main>
+    {{error}}
+    <div class="container-fluid">
+        <div class="row">
+            {% if credError == "" %}
+            <a href="https://calendar.google.com/calendar/"><button type="button" class="btn btn-primary"> Add events in
+                    google calender</button></a>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Link</th>
+                        <th scope="col">Start Time</th>
+                        <th scope="col">End Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in events %}
+                    {% if i.conferenceData.conferenceSolution.name == 'Google Meet' %}
+                    <tr>
+                        <td>
+                            <div><span>{{i.hangoutLink}}</span><i class="fa fa-files-o px-2" onclick="myFunction(event)"
+                                    aria-hidden="true"></i></div>
+                        </td>
+                        <td>{{i.start.dateTime}}</td>
+                        <td>{{i.end.dateTime}}</td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+
+                </tbody>
+            </table>
+            {% else %}
+            <p class="p-2 text-center">Error: {{credError}}</p>
+            {% endif %}
+
+
+            <div class="col-sm-6">
+                <form action="/admin/job_Selection/{{id}}/" method="post">
+                    {% csrf_token %}
+                    <label class="form-label">Assignment</label>
+                    <textarea class="form-control" name="text">{{assignment.text}}</textarea>
+                    <input name="obj" value="assignment" type="hidden">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+
+            <div class="col-sm-6">
+                <form action="/admin/job_Selection/{{id}}/" method="post">
+                    {% csrf_token %}
+                    <label class="form-label">Interview</label>
+                    <textarea class="form-control" name="text">{{interview.text}}</textarea>
+                    <input name="obj" value="interview" type="hidden">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</main>
+{% block js %}
+<script>
+    function myFunction(event) {
+        var r = document.createRange();
+        r.selectNode(event.currentTarget.previousElementSibling);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(r);
+        document.execCommand('copy');
+        window.getSelection().removeAllRanges();
+    }
+</script>
+{% endblock %}
+{% endblock %}

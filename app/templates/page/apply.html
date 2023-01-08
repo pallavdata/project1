@@ -1,0 +1,199 @@
+{% extends "main.html" %}
+
+{% block title %}APPLY{% endblock %}
+{% block style %}
+<style>
+  .control-form-custom>input {
+    width: 100%;
+  }
+
+  .custom-container {
+    max-width: 300px;
+    margin: auto;
+  }
+</style>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+{% endblock %}
+{% block body %}
+
+
+<div class="container">
+
+
+
+
+
+  <h1 class="text-center">Apply Here</h1>
+  <h6 style="background-color: beige;">{{score}}</h6>
+  <form action="/apply_job/{{id}}/" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="row">
+      <div class="form-group col-sm-6 mt-2">
+        <label>First Name *</label>
+        <input type="text" name="f_name" value="{{form.f_name.value }}" class="form-control" placeholder="First Name"
+          required>
+        {% for error in form.f_name.errors %}
+        <div class="form-text"> {{ error }} </div>
+        {% endfor %}
+      </div>
+      <div class="form-group col-sm-6 mt-2">
+        <label>Last Name *</label>
+        <input type="text" name="l_name" class="form-control" placeholder="Last Name" value="{{form.l_name.value }}"
+          required>
+        {% for error in form.l_name.errors %}
+        <div class="form-text"> {{ error }} </div>
+        {% endfor %}
+      </div>
+    </div>
+
+
+
+    <div class="row">
+      <div class="form-group col-sm-6 mt-2">
+        <label>Email *</label>
+        <input type="email" name="email_id" class="form-control" placeholder="example@gmail.com"
+          value="{{form.email_id.value }}" required>
+        {% for error in form.email_id.errors %}
+        <div class="form-text"> {{ error }} </div>
+        {% endfor %}
+      </div>
+      <div class="form-group col-md-6 mt-2">
+        <div>Gender *</div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="gender" value="Male" required>
+          <label class="form-check-label" for="inlineRadio1">Male</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="gender" value="Female" required>
+          <label class="form-check-label" for="inlineRadio1">Female</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="gender" value="Other" required>
+          <label class="form-check-label" for="inlineRadio1">Other</label>
+        </div>
+        {% for error in form.gender.errors %}
+        <div class="form-text"> {{ error }} </div>
+        {% endfor %}
+      </div>
+    </div>
+    <hr>
+    <h4> Qualification</h4>
+    <hr>
+    <div class="">
+      <label>Collage Name or privious company *</label>
+      <input type="text" class="form-control" name="edu_collage_name" maxlength="120"
+        value="{{form.edu_collage_name.value }}" required>
+      {% for error in form.edu_collage_name.errors %}
+      <div class="form-text"> {{ error }} </div>
+      {% endfor %}
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-md-6">
+        <div class="row mt-2">
+          <div class="col-sm-auto">
+            <label>Passing Year or joining date *</label>
+          </div>
+          
+          <div class="col-sm-4 col-6">
+            <input type="year" id="year" class="form-control" step="1"
+              value="{{form.edu_year.value }}" name="edu_year">
+            {% for error in form.edu_year.errors %}
+            <div class="form-text"> {{ error }} </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="form-text"> Year must be from 1900 to current year.</div>
+      </div>
+      <div class="col-md-6">
+        <div class="row mt-2">
+          <div class="col-sm-auto">
+            <label>Collage Percentage/CGPA</label>
+          </div>
+          <div class="col-sm-4 col-6">
+            <input type="text" class="form-control" name="edu_marks" maxlength="9" value="{{form.edu_marks.value }}">
+            {% for error in form.edu_marks.errors %}
+            <div class="form-text"> {{ error }} </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <h4> Skills</h4>
+    <select class="selectpicker form-control mt-2" name="skill" multiple data-live-search="true">
+      {% for i in skill %}
+      <option value="{{i.skill}}">{{i.skill}}</option>
+      {% endfor %}
+    </select>
+    {% for error in form.skill.errors %}
+    <div class="form-text"> {{ error }} </div>
+    {% endfor %}
+    <hr>
+    <h4> Project Details</h4>
+    <hr>
+    <label class="mt-2">Project</label>
+    <textarea class="form-control" name="internship" maxlength="500">{{form.internship.value}}</textarea>
+    <hr>
+    <div class="mb-3 mt-2">
+      <label for="formFile" class="form-label">Select Image</label>
+      <input class="form-control" type="file" name="img" accept="image/*">
+      {% for error in form.img.errors %}
+      <div class="form-text"> {{ error }} </div>
+      {% endfor %}
+    </div>
+    <div class="mt-2">
+      <label for="formFile" class="form-label">Select Resume *</label>
+      <div class="input-group mb-3">
+        <input class="form-control" type="file" name="resume" accept=".pdf">
+        <span class="input-group-text">.pdf</span>
+      </div>
+      {% for error in form.resume.errors %}
+      <div class="form-text"> {{ error }} </div>
+      {% endfor %}
+    </div>
+
+    {% if data %}
+    <button class="btn btn-secondary button-custom" type="button" data-bs-toggle="collapse" data-bs-target="#collapse"
+      aria-expanded="false" aria-controls="collapse">
+      Continue
+    </button>
+    <div class="collapse" id="collapse">
+      <h5>To Apply for the job your all answer should be correct</h5>
+      <ol type="1">
+        {% for i in data %}
+        <li> {{i.question}}</li>
+        {% for j in i.other %}
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name={{i.id}} value={{j}} required>
+          <label class="form-check-label">
+            {{j}}
+          </label>
+        </div>
+        {% endfor %}
+        {% endfor %}
+      </ol>
+      {% endif %}
+
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+
+</div>
+</form>
+
+
+</div>
+<script type="text/javascript">
+  $('.selectpicker').selectpicker();
+  const updatedate = new Date()
+  
+  year = document.getElementById("year")
+  year.placeholder = updatedate.getFullYear()
+  year.max = updatedate.getFullYear()
+  year.min = "1900"
+</script>
+{% endblock %}
